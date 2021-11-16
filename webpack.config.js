@@ -1,5 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 
 module.exports = {
   entry: path.join(__dirname,'src','index.tsx'),
@@ -12,6 +13,7 @@ module.exports = {
     extensions: ['.js', '.json', '.ts', '.tsx'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
+  devtool: 'cheap-module-source-map',
   devServer: {
     contentBase: path.join(__dirname,'src')
   },
@@ -39,6 +41,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname,'src','index.html')
-    })
+    }),
+    new CopyPlugin({
+      patterns: [{ from: './public/', to: './' }],
+    }),
   ]
 };
